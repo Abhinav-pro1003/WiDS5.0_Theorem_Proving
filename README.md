@@ -1,6 +1,6 @@
 # WiDS5.0_Theorem_Proving
 
-Welcome to the **Winter in Data Science** 2025 hosted by Analytics Club, IIT Bombay! This repository will be updated with all resources and assignments for the _holding space_ project. This program will guide you through foundational concepts and problem-solving techniques in Automated Reasoning, with a focus on real-world applications and hands-on coding assignments.
+Welcome to the **Winter in Data Science** 2025 hosted by Analytics Club, IIT Bombay! This repository will be updated with all resources and assignments for the _AI for Logical Thinking_ project. This program will guide you through foundational concepts and problem-solving techniques in Automated Reasoning, with a focus on real-world applications and hands-on coding assignments.
 
 ## Course Outline
 (Subject to Change)
