@@ -7,17 +7,20 @@ This week's assignment focuses on implementing fundamental algorithms for propos
 ```
 Week1/
 ├── Assignment.md           # This file
-├── Plan_Week1.md          # Weekly learning plan
+├── Plan_Week1.md        
 ├── prop_logic/
 │   ├── to_cnf.py          # CNF conversion (implement this)
 │   ├── dpll.py            # DPLL solver (implement this)
-│   ├── autograder.py      # Automated testing script
-│   ├── testcases/         # Test cases directory
+│   ├── autograder.py      
+│   ├── testcases/        
 │      ├── cnf_test_cases.json
 │      ├── dpll_test_cases.json
 │    
 │   
-└── fol/              
+└── fol/  
+|   ├── robinson.py  #(implement this)
+│   ├── autograder.py     
+│   ├── testcases.json   
 ```
 
 ## Part 1: CNF Conversion (15 test cases)
@@ -69,12 +72,7 @@ Implement the `dpll(clauses, assignment)` function that determines if a CNF form
 - `satisfiable`: True if formula is satisfiable, False otherwise
 - `assignment`: A satisfying assignment if SAT, empty dict if UNSAT
 
-### Test Cases
-- **Basic (5 tests)**: Empty clauses, unit clauses, simple contradictions
-- **Medium (5 tests)**: Unit propagation, pure literals, simple formulas
-- **Hard (5 tests)**: 3-SAT problems, complex formulas, pigeonhole principle
-
-### Example
+### Test Cases Example
 ```python
 # Satisfiable formula
 clauses = [{'P', 'Q'}, {'~P', 'Q'}]
@@ -104,20 +102,54 @@ cd Week1/prop_logic
 python autograder.py
 ```
 
-## Submission Guidelines
-1. Implement your solutions in `to_cnf.py` and `dpll.py`
-2. Test thoroughly using the autograder
-3. Ensure all imports and class definitions remain unchanged
+# Part 3: First-Order Logic - Robinson's Resolution 
+
+### File: `fol/robinson.py`
+
+Implement the Robinson resolution algorithm for First-Order Logic (FOL). Since FOL satisfiability is undecidable, your implementation should either prove unsatisfiability (UNSAT) or timeout if it cannot determine satisfiability. Also, implement the unification with Most General Unifier (MGU).
+
+### Input Format
+- `clauses`: List of clauses in FOL-CNF format
+  - Each clause is a list of literals (strings)
+  - Variables start with lowercase, predicates/constants with uppercase
+  - Example: `["P(x)", "~Q(x, a)"]` represents P(x) ∨ ¬Q(x, a)
+
+### Output Format
+- Tuple: `(result: str, proof: list)`
+- `result`: Either `"UNSAT"` (unsatisfiable) or `"TIMEOUT"` (undecidable/timeout)
+- `proof`: List of resolution steps if UNSAT, empty list if TIMEOUT
 
 
-## Resources
-### CNF Conversion
-- [CNF on Wikipedia](https://en.wikipedia.org/wiki/Conjunctive_normal_form)
+### Examples
 
-### DPLL Algorithm
-- [DPLL on Wikipedia](https://en.wikipedia.org/wiki/DPLL_algorithm)
-- Davis-Putnam-Logemann-Loveland algorithm
-- Unit propagation and pure literal elimination
----
+#### Example 1: Simple UNSAT
+```python
+# All x: P(x) → Q(x), P(a), ~Q(a)
+clauses = [
+    ["~P(x)", "Q(x)"],  # P(x) → Q(x)
+    ["P(a)"],           # P(a)
+    ["~Q(a)"]           # ~Q(a)
+]
+result, proof = robinson_resolution(clauses, max_iterations=100)
+# Output: ("UNSAT", [...resolution steps...])
+```
 
-**Good luck with your implementation! Remember: automated theorem proving is a powerful tool for verifying complex systems.**
+#### Example 2: Satisfiable (Timeout)
+```python
+# P(a), Q(b) - no contradiction possible
+clauses = [
+    ["P(a)"],
+    ["Q(b)"]
+]
+result, proof = robinson_resolution(clauses, max_iterations=50)
+# Output: ("TIMEOUT", [])
+```
+
+## Running the FOL Autograder
+
+```bash
+cd Week1/fol
+python autograder.py
+```
+
+**Good luck with your implementation!**
